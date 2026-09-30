@@ -5,8 +5,10 @@ import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 
+expect fun createPlatformHttpClient(): HttpClient
+
 fun createHttpClient(): HttpClient {
-    return HttpClient {
+    return createPlatformHttpClient().config {
         install(ContentNegotiation) {
             json(
                 Json {
