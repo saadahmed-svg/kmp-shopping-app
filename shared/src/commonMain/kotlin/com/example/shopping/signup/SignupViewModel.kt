@@ -90,14 +90,6 @@ class SignupViewModel : ViewModel() {
             SignupIntent.Submit -> {
                 submit()
             }
-
-            SignupIntent.BackToSignup -> {
-                _uiState.update {
-                    it.copy(
-                        isSignupSuccessful = false
-                    )
-                }
-            }
         }
     }
 

@@ -42,7 +42,8 @@ import androidx.compose.foundation.verticalScroll
 
 @Composable
 fun SignupScreen(
-    viewModel: SignupViewModel
+    viewModel: SignupViewModel,
+    onExploreProducts: () -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
@@ -59,13 +60,53 @@ fun SignupScreen(
         ) { isSuccessful ->
 
             if (isSuccessful) {
-                SignupSuccessScreen(
-                    onBackToSignup = {
-                        viewModel.onIntent(
-                            SignupIntent.BackToSignup
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .safeDrawingPadding()
+                ) {
+
+                    Column(
+                        modifier = Modifier.align(
+                            Alignment.Center
+                        ),
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+
+                        Text(
+                            text = "🎉",
+                            style = MaterialTheme.typography.displayMedium
+                        )
+
+                        Spacer(
+                            modifier = Modifier.height(20.dp)
+                        )
+
+                        Text(
+                            text = "Congratulations!",
+                            style = MaterialTheme.typography.headlineMedium
+                        )
+
+                        Spacer(
+                            modifier = Modifier.height(8.dp)
+                        )
+
+                        Text(
+                            text = "Signed up successfully",
+                            style = MaterialTheme.typography.bodyLarge
                         )
                     }
-                )
+
+                    Button(
+                        onClick = onExploreProducts,
+                        modifier = Modifier
+                            .align(Alignment.BottomCenter)
+                            .fillMaxWidth()
+                            .padding(bottom = 16.dp)
+                    ) {
+                        Text("Explore Products")
+                    }
+                }
             } else {
                 SignupForm(
                     uiState = uiState,
@@ -406,58 +447,6 @@ private fun PasswordStrengthIndicator(
                         shape = RoundedCornerShape(4.dp)
                     )
             )
-        }
-    }
-}
-
-@Composable
-private fun SignupSuccessScreen(
-    onBackToSignup: () -> Unit
-) {
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .safeDrawingPadding()
-    ) {
-
-        Column(
-            modifier = Modifier.align(
-                Alignment.Center
-            ),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-
-            Text(
-                text = "🎉",
-                style = MaterialTheme.typography.displayMedium
-            )
-
-            Spacer(
-                modifier = Modifier.height(20.dp)
-            )
-
-            Text(
-                text = "Congratulations!",
-                style = MaterialTheme.typography.headlineMedium
-            )
-
-            Spacer(
-                modifier = Modifier.height(8.dp)
-            )
-
-            Text(
-                text = "Signed up successfully",
-                style = MaterialTheme.typography.bodyLarge
-            )
-        }
-
-        TextButton(
-            onClick = onBackToSignup,
-            modifier = Modifier
-                .align(Alignment.BottomCenter)
-                .padding(bottom = 24.dp)
-        ) {
-            Text("Back to signup")
         }
     }
 }

@@ -24,5 +24,4 @@ sealed interface SignupIntent {
 
     data object Submit : SignupIntent
 
-    data object BackToSignup : SignupIntent
 }
